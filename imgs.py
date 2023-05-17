@@ -9,6 +9,7 @@ img1 = [[[239, 239, 239], [254, 254, 254], [255, 255, 255], [239, 239, 239], [25
 
 imgs = []
 imgs.append(img0)
+imgs.append(img1)
 
 def get_img(index):
     return imgs[index]

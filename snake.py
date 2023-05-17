@@ -19,11 +19,14 @@ class Snake:
         
     def update_apple_pos(self):
         while True:
+            is_valid = True
             self.apple_pos = (randint(0,11), randint(0,9))
             for pos in self.snake:
                 if pos == self.apple_pos:
-                    continue
-            break
+                    is_valid = False
+                    break
+            if is_valid:
+                break
             
     def move(self, direction):
         def update(new_x, new_y):

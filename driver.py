@@ -26,19 +26,26 @@ class Light:
             for j in range(12):
                 self.buf[i][j] = img[i][j]
         self.update()
-    
+    def show_re(self, img):
+        for i in range(10):
+            for j in range(12):
+                self.buf[9-i][j] = img[j][i]
+        self.update()
 class Touch:
     def __init__(self):
-        self.touch = I2C(1, freq=100000)
-
+        self.touch = I2C(1, freq=100000, timeout=50)
+        
     def is_touch(self, val):
-        if 0 <= val and val < 8:
-            buf = self.touch.readfrom_mem(0x50, 8, 1)
-            if buf[0] & (1 << val):
-                return True
-        if 8 <= val and val < 12:
-            buf = self.touch.readfrom_mem(0x50, 9, 1)
-            if buf[0] & (1 << (val-8)):
-                return True
+        try:
+            if 0 <= val and val < 8:
+                buf = self.touch.readfrom_mem(0x50, 8, 1)
+                if buf[0] & (1 << val):
+                    return True
+            if 8 <= val and val < 12:
+                buf = self.touch.readfrom_mem(0x50, 9, 1)
+                if buf[0] & (1 << (val-8)):
+                    return True
+        except Exception:
+            pass
         return False
 
